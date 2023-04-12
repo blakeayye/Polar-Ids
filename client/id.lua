@@ -154,29 +154,16 @@ Citizen.CreateThread(function()
     end
 end)
 
-local function ensureAnimDict(animDict)
-    if not HasAnimDictLoaded(animDict) then
-        RequestAnimDict(animDict)
-        while not HasAnimDictLoaded(animDict) do
-            Wait(100)
-        end        
-    end
-
-    local playerPed = GetPlayerPed(-1)
-
-    TaskPlayAnim(playerPed, 'missheistdockssetup1clipboard@base', 'base', 8.0, -8, -1, 49, 0, 0, 0, 0)
-    return animDict
-end
-
 local timethread = 5
 CreateThread(function()
     while true do
         Wait(timethread)
         
-            if IsControlJustReleased(0, tonumber(212)) then
-
+            if IsControlJustReleased(0, tonumber(Config.Button)) then
+                TriggerEvent('animations:Client:EmoteCommandStart', {'clipboard'})
                 TimerCheck()
                 Wait(5000)
+                TriggerEvent('animations:Client:EmoteCommandStart', {'c'})
             end
         
     end
